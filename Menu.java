@@ -16,18 +16,20 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class Menu extends JFrame {
+public class Menu extends JFrame  implements Constants{
 	
-	private int chooselevel = 1;
+	
 	private static final long serialVersionUID = 1L;
+
+	private int chooselevel = LMIN;
 	JLabel label = new JLabel("Вubble tank");
 	JLabel label2 = new JLabel("Уровень сложности");
 	JButton button = new JButton("Играть");
 	JButton button1 = new JButton("Settings");
 	JButton button2 = new JButton("Выйти");
 	JButton playPC = new JButton("Играет ПК");
-	static int min = 1;
-	static int max = 14;
+	static int min = LMIN;
+	static int max = LMAX;
 	JPanel panel = new JPanel();
 	JFrame startframe = new JFrame("TanksAndreiBike");
 	JSlider Level = new JSlider(JSlider.HORIZONTAL, min, max, 1);
@@ -42,7 +44,7 @@ public class Menu extends JFrame {
 		Level.setFont(font);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(Box.createRigidArea(new Dimension(0, 25)));
-		setSize(400, 400);
+		setSize(MWIDTH, MHEIDTH);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		panel.setBackground(Color.PINK);
@@ -73,11 +75,11 @@ public class Menu extends JFrame {
 		panel.add(button2);
 		panel.add(Box.createRigidArea(new Dimension(0, 25)));
 		add(panel);
-		ButtonAction();
+		pushButton();
 
 	}
 
-	public void ButtonAction() {
+	public void pushButton() {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);

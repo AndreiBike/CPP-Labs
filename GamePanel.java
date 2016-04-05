@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GamePanel extends JFrame implements Runnable {
+public class GamePanel extends JFrame implements Runnable, Constants {
 
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH = 1200;
@@ -70,7 +70,7 @@ public class GamePanel extends JFrame implements Runnable {
 			gameRender();
 			gameDraw();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(ZADERGKA);
 			} catch (InterruptedException e) {
 
 				e.printStackTrace();

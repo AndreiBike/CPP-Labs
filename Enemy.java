@@ -2,7 +2,7 @@ package AndreiBike;
 
 import java.awt.*;
 
-public class Enemy {
+public class Enemy implements Constants {
 
 	private double x;
 	private double y;
@@ -11,50 +11,47 @@ public class Enemy {
 	private double dx;
 	private double dy;
 	private int health;
-	private static int point = 0;
+	private static int point;
 	private Color color;
 
 	public Enemy(int type, int rank) {
 
-		switch (type) {
-		case 1:
-			switch (rank) {
-			case (1):
-				color = Color.RED;
-				x = Math.random() * GamePanel.WIDTH;
-				y = 70;
-				speed = 5;
-				health = 1;
-				r = 20;
-				double angle = Math.toRadians(Math.random() * 360);
-				dx = Math.sin(angle) * speed;
-				dy = Math.cos(angle) * speed;
-				break;
-				
-			case (2):
-				color = Color.BLUE;
-				x = Math.random() * GamePanel.WIDTH;
-				y = 60;
-				speed = 4;
-				health = 5;
-				r = 40;
-				double angle2 = Math.toRadians(Math.random() * 360);
-				dx = Math.sin(angle2) * speed;
-				dy = Math.cos(angle2) * speed;
-				break;
-				
-			case (3):
-				color = Color.BLUE;
-				x = Math.random() * GamePanel.WIDTH;
-				y = 60;
-				speed = 3;
-				health = 7;
-				r = 60;
-				double angle3 = Math.toRadians(Math.random() * 360);
-				dx = Math.sin(angle3) * speed;
-				dy = Math.cos(angle3) * speed;
-				break;
-			}
+		switch (rank) {
+		case (1):
+			color = Color.RED;
+			x = Math.random() * GamePanel.WIDTH;
+			y =INFOPANEL +2 * RAD1;
+			speed = SPEED1;
+			health = HEALTH1;
+			r = RAD1;
+			double angle = Math.toRadians(Math.random() * 360);
+			dx = Math.sin(angle) * speed;
+			dy = Math.cos(angle) * speed;
+			break;
+
+		case (2):
+			color = Color.BLUE;
+			x = Math.random() * GamePanel.WIDTH;
+			y = INFOPANEL + 2 * RAD2;
+			speed = SPEED2;
+			health = HEALTH2;
+			r = RAD2;
+			double angle2 = Math.toRadians(Math.random() * 360);
+			dx = Math.sin(angle2) * speed;
+			dy = Math.cos(angle2) * speed;
+			break;
+
+		case (3):
+			color = Color.GRAY;
+			x = Math.random() * GamePanel.WIDTH;
+			y = INFOPANEL + 2 * RAD3 ;
+			speed = SPEED3;
+			health = HEALTH3;
+			r = RAD3;
+			double angle3 = Math.toRadians(Math.random() * 360);
+			dx = Math.sin(angle3) * speed;
+			dy = Math.cos(angle3) * speed;
+			break;
 		}
 	}
 
@@ -67,7 +64,7 @@ public class Enemy {
 		if (x > GamePanel.WIDTH - r && dx > 0) {
 			dx = -dx;
 		}
-		if (y < 60 + r && dy < 0) {
+		if (y < INFOPANEL + r && dy < 0) {
 			dy = -dy;
 		}
 		if (y > GamePanel.HEIGHT - r && dy > 0) {
