@@ -20,13 +20,12 @@ public interface Constants {
 	static final int RAD3=60;
 	static final int WAVEDELAY = 5000;
 	static final int WAVEMULTIPLIER =5;
-	static final int WAVE_1 = 1;
-	static final int WAVE_2 = 5;
-	static final int WAVE_3 = 10;
-	static final int FINAL = 15;
+	static final int WAVE_1 = 5;
+	static final int WAVE_2 = 10;
+	static final int WAVE_3 = 15;
 	static final int RANK_1 = 1;
 	static final int RANK_2 = 2;
 	static final int RANK_3 = 3;
 	static final int TYPE = 1;
-
+	static final String WIN_MESSAGE = "Вы уничтожили все волны";
 }

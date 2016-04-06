@@ -7,53 +7,54 @@ public class Listeners implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_W) {
+		switch (key) {
+		case (KeyEvent.VK_W):
 			Player.up = true;
-		}
-		if (key == KeyEvent.VK_A) {
+			break;
+		case (KeyEvent.VK_A):
 			Player.left = true;
-		}
-		if (key == KeyEvent.VK_S) {
+			break;
+		case (KeyEvent.VK_S):
 			Player.down = true;
-		}
-		if (key == KeyEvent.VK_D) {
+			break;
+		case (KeyEvent.VK_D):
 			Player.right = true;
-		}
-		if (key == KeyEvent.VK_SPACE) {
+			break;
+		case (KeyEvent.VK_SPACE):
 			Player.isFiring = true;
-		}
-		if (key == KeyEvent.VK_ESCAPE) {
+			break;
+		case (KeyEvent.VK_ESCAPE):
 			if (GamePanel.pause == false) {
 				GamePanel.pause = true;
 			} else {
 				GamePanel.pause = false;
 			}
+			break;
 		}
-
 	}
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_W) {
+		switch (key) {
+		case (KeyEvent.VK_W):
 			Player.up = false;
-		}
-		if (key == KeyEvent.VK_A) {
+			break;
+		case (KeyEvent.VK_A):
 			Player.left = false;
-		}
-		if (key == KeyEvent.VK_S) {
+			break;
+		case (KeyEvent.VK_S):
 			Player.down = false;
-		}
-		if (key == KeyEvent.VK_D) {
+			break;
+		case (KeyEvent.VK_D):
 			Player.right = false;
-		}
-		if (key == KeyEvent.VK_SPACE) {
+			break;
+		case (KeyEvent.VK_SPACE):
 			Player.isFiring = false;
+			break;
 		}
 	}
 
-	
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		

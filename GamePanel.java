@@ -174,11 +174,11 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 	}
 
 	public boolean gameUpdate() {
-		// Обновление игрока
+		// Update player
 		if (botOrPlayer == false) {
 			player.update();
 		}
-		// Отрисовка пуль
+		//Update bullet
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).update();
 			boolean remove = bullets.get(i).remove();
@@ -187,13 +187,13 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 				i--;
 			}
 		}
-		// Отрисовка врага
+		// Update enemy
 
 		for (int i = 0; i < enemy.size(); i++) {
 			enemy.get(i).update();
 		}
 
-		// Столкновение пуль и врага
+		// Crash enemy and bullet
 
 		for (int i = 0; i < enemy.size(); i++) {
 			Enemy e = enemy.get(i);
@@ -221,7 +221,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 				}
 			}
 		}
-		// Столкновения игрока и врага
+		// Crash enemy and player
 		for (int i = 0; i < enemy.size(); i++) {
 			Enemy e = enemy.get(i);
 			double ex = e.getX();
@@ -256,16 +256,16 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 	}
 
 	public void gameRender() {
-		// Отрисовка заднего фона
+		// Draw background
 		Background.draw(g);
-		// Отрисовка игрока
+		// Draw player
 		player.draw(g);
 		player.draw2(g);
-		// Отрисовка пуль
+		// Draw bullet
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).draw(g);
 		}
-		// Отрисовка врага
+		// Draw enemy
 		for (int i = 0; i < enemy.size(); i++) {
 			enemy.get(i).draw(g);
 

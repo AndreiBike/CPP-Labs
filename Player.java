@@ -5,9 +5,9 @@ import java.awt.*;
 public class Player {
 	private double x;
 	private double y;
-	private int r;
-	private int health;
-	private int speed;
+	private int r = 20;
+	private int health = 3;
+	private int speed = 5;
 	private String HPtext = "Здоровье - ";
 	private String POINTtext = "Очки - ";
 	private Color color1;
@@ -20,9 +20,6 @@ public class Player {
 	public Player(){
 		x = GamePanel.WIDTH/2;
 		y= GamePanel.HEIGHT /2;
-		health = 3;
-		r=20;
-		speed=5;
 		color1= Color.RED;
 		up=false;
 		down=false;
