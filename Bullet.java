@@ -6,7 +6,7 @@ public class Bullet implements Constants {
 
   private double x;
   private double y;
-  private final int r = 2;
+  private final int radius = 2;
   private Color color;
   private final int speed = 10;
 
@@ -34,7 +34,7 @@ public class Bullet implements Constants {
 
   public void draw(Graphics2D g) {
     g.setColor(color);
-    g.fillOval((int) x + SMXB, (int) y - SMYB, r, 2 * r);
+    g.fillOval((int) x + SMXB, (int) y - SMYB, radius, 2 * radius);
 
   }
 
@@ -48,7 +48,7 @@ public class Bullet implements Constants {
     return y;
   }
 
-  public int getR() {
-    return r;
+  public int getRadius() {
+    return radius;
   }
 }

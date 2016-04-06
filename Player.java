@@ -10,8 +10,8 @@ public class Player {
   private int radius = 20;
   private int health = 3;
   private int speed = 5;
-  private String hpText = "здоровье - ";
-  private String pointText = "очки - ";
+  private String hpText = "Health - ";
+  private String pointText = "Points - ";
   private Color color1;
   public static boolean up;
   public static boolean down;

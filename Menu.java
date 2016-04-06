@@ -16,98 +16,97 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class Menu extends JFrame  implements Constants{
-	
-	
-	private static final long serialVersionUID = 1L;
+public class Menu extends JFrame implements Constants {
 
-	private int chooselevel = LMIN;
-	JLabel label = new JLabel("Вubble tank");
-	JLabel label2 = new JLabel("Уровень сложности");
-	JButton button = new JButton("Играть");
-	JButton button1 = new JButton("Settings");
-	JButton button2 = new JButton("Выйти");
-	JButton playPC = new JButton("Играет ПК");
-	static int min = LMIN;
-	static int max = LMAX;
-	JPanel panel = new JPanel();
-	JFrame startframe = new JFrame("TanksAndreiBike");
-	JSlider Level = new JSlider(JSlider.HORIZONTAL, min, max, 1);
 
-	public Menu() {
-		setTitle("BubbleTank v1.0");
-		Level.setMajorTickSpacing(10);
-		Level.setMinorTickSpacing(1);
-		Level.setPaintTicks(true);
-		Level.setPaintLabels(true);
-		Font font = new Font("Serif", Font.ITALIC, 10);
-		Level.setFont(font);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		setSize(MWIDTH, MHEIDTH);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		panel.setBackground(Color.PINK);
-		Level.setBackground(Color.PINK);
-		label.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		label.setFont(new Font("Verdana", Font.ITALIC, 30));
-		label2.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		label2.setFont(new Font("Calibri", Font.ITALIC, 15));
-		button.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
-		button.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		button1.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
-		button1.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		button2.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
-		button2.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		playPC.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
-		playPC.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		Level.setMaximumSize(new Dimension(BUTTON_WIDTH, 50));
-		Level.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		panel.add(label);
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		panel.add(button);
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		panel.add(label2);
-		panel.add(Level);
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		panel.add(playPC);
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		panel.add(button2);
-		panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-		add(panel);
-		pushButton();
+  private static final long serialVersionUID = 1L;
 
-	}
+  private int chooselevel = LMIN;
+  JLabel label = new JLabel("Вubble tank");
+  JLabel levelLabel = new JLabel("Level");
+  JButton playButton = new JButton("Play");
+  JButton settingsButton = new JButton("Settings");
+  JButton exitButton = new JButton("Exit");
+  JButton playPC = new JButton("PC plays");
+  static int min = LMIN;
+  static int max = LMAX;
+  JPanel panel = new JPanel();
+  JFrame startframe = new JFrame("TanksAndreiBike");
+  JSlider Level = new JSlider(JSlider.HORIZONTAL, min, max, 1);
 
-	public void pushButton() {
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
-				GamePanel panel2 = new GamePanel(chooselevel, false);
-				panel2.start();
-			}
-		});
+  public Menu() {
+    Level.setMajorTickSpacing(10);
+    Level.setMinorTickSpacing(1);
+    Level.setPaintTicks(true);
+    Level.setPaintLabels(true);
+    Font font = new Font("Serif", Font.ITALIC, 10);
+    Level.setFont(font);
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    setSize(MWIDTH, MHEIDTH);
+    setLocationRelativeTo(null);
+    setResizable(false);
+    panel.setBackground(Color.PINK);
+    Level.setBackground(Color.PINK);
+    label.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    label.setFont(new Font("Verdana", Font.ITALIC, 30));
+    levelLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    levelLabel.setFont(new Font("Calibri", Font.ITALIC, 15));
+    playButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    playButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    settingsButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    settingsButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    exitButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    playPC.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    playPC.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    Level.setMaximumSize(new Dimension(BUTTON_WIDTH, 50));
+    Level.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    panel.add(label);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(playButton);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(levelLabel);
+    panel.add(Level);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(playPC);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(settingsButton);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    add(panel);
+    pushButton();
 
-		button2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				System.exit(0);
-			}
-		});
+  }
 
-		Level.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				JSlider source = (JSlider) event.getSource();
-				chooselevel = source.getValue();
-			}
-		});
+  public void pushButton() {
+    playButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        setVisible(false);
+        GamePanel panel2 = new GamePanel(chooselevel, false);
+        panel2.start();
+      }
+    });
 
-		playPC.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
-				GamePanel panel2 = new GamePanel(chooselevel, true);
-				panel2.start();
-			}
-		});
+    settingsButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        System.exit(0);
+      }
+    });
 
-	}
+    Level.addChangeListener(new ChangeListener() {
+      public void stateChanged(ChangeEvent event) {
+        JSlider source = (JSlider) event.getSource();
+        chooselevel = source.getValue();
+      }
+    });
+
+    playPC.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        setVisible(false);
+        GamePanel panel2 = new GamePanel(chooselevel, true);
+        panel2.start();
+      }
+    });
+
+  }
 }

@@ -48,7 +48,7 @@ public class Enemy implements Constants {
         speed = SPEED3;
         health = HEALTH3;
         r = RAD3;
-        double angle3 = Math.toRadians(Math.random() * 360);
+        double angle3 = Math.toRadians(Math.random() * CIRCLE);
         dx = Math.sin(angle3) * speed;
         dy = Math.cos(angle3) * speed;
         break;
