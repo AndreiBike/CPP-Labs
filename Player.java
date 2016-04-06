@@ -4,13 +4,14 @@ import java.awt.*;
 
 public class Player {
 
+  private static final double CRITICAL_DISTANCE = 100;
   private double x;
   private double y;
-  private int rad = 20;
+  private int radius = 20;
   private int health = 3;
   private int speed = 5;
-  private String HPtext = "здоровье - ";
-  private String POINTtext = "очки - ";
+  private String hpText = "здоровье - ";
+  private String pointText = "очки - ";
   private Color color1;
   public static boolean up;
   public static boolean down;
@@ -38,20 +39,20 @@ public class Player {
   }
 
   public int getR() {
-    return rad;
+    return radius;
   }
 
   public void update() {
     if (up && y > 65) {
       y -= speed;
     }
-    if (down && y < GamePanel.HEIGHT - rad) {
+    if (down && y < GamePanel.HEIGHT - radius) {
       y += speed;
     }
     if (left && x > 0) {
       x -= speed;
     }
-    if (right && x < GamePanel.WIDTH - rad) {
+    if (right && x < GamePanel.WIDTH - radius) {
       x += speed;
     }
     if (isFiring) {
@@ -61,17 +62,17 @@ public class Player {
 
   public void draw(Graphics2D g) {
     g.setColor(color1);
-    g.fillRect((int) (x), (int) (y), rad, rad);
+    g.fillRect((int) (x), (int) (y), radius, radius);
   }
 
   public void draw2(Graphics2D g) {
     g.setColor(Color.DARK_GRAY);
     g.fillRect((int) (x + 5), (int) (y - 5), 10, 20);
-    String s1 = HPtext + health;
+    String s1 = hpText + health;
     g.setColor(Color.WHITE);
     g.setFont(new Font("consolas", Font.PLAIN, 20));
     g.drawString(s1, 50, 48);
-    String s2 = POINTtext + Enemy.getPoint();
+    String s2 = pointText + Enemy.getPoint();
     g.setColor(Color.WHITE);
     g.setFont(new Font("consolas", Font.PLAIN, 20));
     g.drawString(s2, 250, 48);
@@ -89,30 +90,30 @@ public class Player {
     return false;
   }
 
-  public void bot(double ex, double ey) {
+  public void bot(double enemyX, double enemyY) {
 
-    double rasst;
-    rasst = Math.sqrt((ex - x) * (ex - x) + (ey - y) * (ey - y));
-    if (rasst < 100) {
-      if (ex > x && x > 0) {
+    double distance;
+    distance = Math.sqrt((enemyX - x) * (enemyX - x) + (enemyY - y) * (enemyY - y));
+    if (distance < CRITICAL_DISTANCE) {
+      if (enemyX > x && x > 0) {
         x -= speed;
       }
-      if (ex < x && x < GamePanel.WIDTH - rad) {
+      if (enemyX < x && x < GamePanel.WIDTH - radius) {
         x += speed;
       }
-      if (ey > y && y < GamePanel.HEIGHT - rad) {
+      if (enemyY > y && y < GamePanel.HEIGHT - radius) {
         y += speed;
       }
-      if (ey < y && y > 65) {
+      if (enemyY < y && y > 65) {
         y -= speed;
       }
 
     } else {
       GamePanel.bullets.add(new Bullet());
-      if (ex > x && x > 0) {
+      if (enemyX > x && x > 0) {
         x += speed;
       }
-      if (ex < x && x < GamePanel.WIDTH - rad) {
+      if (enemyX < x && x < GamePanel.WIDTH - radius) {
         x -= speed;
       }
     }

@@ -20,7 +20,7 @@ public class Enemy implements Constants {
       case (1):
         color = Color.RED;
         x = Math.random() * GamePanel.WIDTH;
-        y = INFOPANEL + 2 * RAD1;
+        y = INFO_PANEL + 2 * RAD1;
         speed = SPEED1;
         health = HEALTH1;
         r = RAD1;
@@ -32,7 +32,7 @@ public class Enemy implements Constants {
       case (2):
         color = Color.BLUE;
         x = Math.random() * GamePanel.WIDTH;
-        y = INFOPANEL + 2 * RAD2;
+        y = INFO_PANEL + 2 * RAD2;
         speed = SPEED2;
         health = HEALTH2;
         r = RAD2;
@@ -44,7 +44,7 @@ public class Enemy implements Constants {
       case (3):
         color = Color.GRAY;
         x = Math.random() * GamePanel.WIDTH;
-        y = INFOPANEL + 2 * RAD3;
+        y = INFO_PANEL + 2 * RAD3;
         speed = SPEED3;
         health = HEALTH3;
         r = RAD3;
@@ -64,7 +64,7 @@ public class Enemy implements Constants {
     if (x > GamePanel.WIDTH - r && dx > 0) {
       dx = -dx;
     }
-    if (y < INFOPANEL + r && dy < 0) {
+    if (y < INFO_PANEL + r && dy < 0) {
       dy = -dy;
     }
     if (y > GamePanel.HEIGHT - r && dy > 0) {

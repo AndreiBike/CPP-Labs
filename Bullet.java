@@ -22,7 +22,7 @@ public class Bullet implements Constants {
   // Metods
 
   public boolean remove() {
-    if (y < INFOPANEL) {
+    if (y < INFO_PANEL) {
       return true;
     }
     return false;

@@ -26,7 +26,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   private BufferedImage image;
   private Graphics2D g;
   private boolean gameOver = false;
-  private boolean pobeda = false;
+  private boolean win = false;
   private boolean botOrPlayer;
   private int PAUSE_WIDTH;
   public static GameBack Background;
@@ -61,7 +61,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
   @SuppressWarnings("deprecation")
   public void playingProcess() {
-    while (!gameOver && !pobeda) {
+    while (!gameOver && !win) {
       if (!pause) {
         gameOver = gameUpdate();
       } else {
@@ -86,7 +86,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     JLabel plabel = new JLabel("Пауза");
     setVisible(false);
     pframe.setVisible(true);
-    cont.setMaximumSize(new Dimension(BWIDTH, BHEIDTH));
+    cont.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     cont.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setFont(new Font("Verdana", Font.ITALIC, 20));
@@ -121,7 +121,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     JLabel glabel = new JLabel("Вы проиграли");
     JLabel wlabel = new JLabel("Победа!!!");
     JLabel point = new JLabel();
-    gotomenu.setMaximumSize(new Dimension(BWIDTH, BHEIDTH));
+    gotomenu.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     gotomenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     glabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     glabel.setFont(new Font("Verdana", Font.ITALIC, 20));
@@ -136,7 +136,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     opanel.setLayout(new BoxLayout(opanel, BoxLayout.Y_AXIS));
 
-    if (!pobeda) {
+    if (!win) {
       opanel.add(glabel);
     } else {
       opanel.add(wlabel);
@@ -252,7 +252,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         }
       }
     }
-    pobeda = wave.update();
+    win = wave.update();
     return false;
   }
 

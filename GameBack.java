@@ -16,6 +16,6 @@ public class GameBack implements Constants {
     g.setColor(color);
     g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     g.setColor(Color.GRAY);
-    g.fillRect(0, 0, GamePanel.WIDTH, INFOPANEL);
+    g.fillRect(0, 0, GamePanel.WIDTH, INFO_PANEL);
   }
 }

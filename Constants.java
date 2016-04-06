@@ -2,7 +2,7 @@ package AndreiBike;
 
 public interface Constants {
   static final int WAIT_TIME = 10;
-  static final int INFOPANEL = 60;
+  static final int INFO_PANEL = 60;
   static final int SMXB = 10;
   static final int SMYB = 2;
   static final int MWIDTH = 400;
@@ -28,8 +28,8 @@ public interface Constants {
   static final int RANK_3 = 3;
   static final int TYPE = 1;
   static final String WIN_MESSAGE = "вы уничтожили все волны";
-  static final int BWIDTH = 200;
-  static final int BHEIDTH = 100;
+  static final int BUTTON_WIDTH = 200;
+  static final int BUTTON_HEIDTH = 100;
   static final int PAUSE_WIDTH = 400;
   static final int PAUSE_HEIDTH = 250;
   static final int YAREA_25 = 25;
