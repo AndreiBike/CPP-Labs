@@ -70,7 +70,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 			gameRender();
 			gameDraw();
 			try {
-				Thread.sleep(ZADERGKA);
+				Thread.sleep(WAIT_TIME);
 			} catch (InterruptedException e) {
 
 				e.printStackTrace();

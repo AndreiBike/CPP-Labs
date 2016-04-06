@@ -8,7 +8,7 @@ public class Wave implements Constants {
 	private long waveTimer;
 	private long waveDelay;
 	private long waveTimerDiff;
-	private String waveText = "ֲ־ְֻֽ - ";
+	private String waveText = "גמכםא - ";
 	private boolean win = false;
 	private int waveMultiplier;
 
