@@ -4,51 +4,51 @@ import java.awt.*;
 
 public class Bullet implements Constants {
 
-	private double x;
-	private double y;
-	private final int r = 2;
-	private Color color;
-	private final int speed = 10;
+  private double x;
+  private double y;
+  private final int r = 2;
+  private Color color;
+  private final int speed = 10;
 
-	// Constructor
+  // Constructor
 
-	public Bullet() {
+  public Bullet() {
 
-		x = GamePanel.player.getX();
-		y = GamePanel.player.getY();
-		color = Color.BLACK;
-	}
+    x = GamePanel.player.getX();
+    y = GamePanel.player.getY();
+    color = Color.BLACK;
+  }
 
-	// Metods
+  // Metods
 
-	public boolean remove() {
-		if (y < INFOPANEL) {
-			return true;
-		}
-		return false;
-	}
+  public boolean remove() {
+    if (y < INFOPANEL) {
+      return true;
+    }
+    return false;
+  }
 
-	public void update() {
-		y -= speed;
-	}
+  public void update() {
+    y -= speed;
+  }
 
-	public void draw(Graphics2D g) {
-		g.setColor(color);
-		g.fillOval((int) x + SMXB, (int) y - SMYB, r, 2 * r);
+  public void draw(Graphics2D g) {
+    g.setColor(color);
+    g.fillOval((int) x + SMXB, (int) y - SMYB, r, 2 * r);
 
-	}
+  }
 
-	public double getX() {
+  public double getX() {
 
-		return x;
-	}
+    return x;
+  }
 
-	public double getY() {
+  public double getY() {
 
-		return y;
-	}
+    return y;
+  }
 
-	public int getR() {
-		return r;
-	}
+  public int getR() {
+    return r;
+  }
 }

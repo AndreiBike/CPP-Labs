@@ -2,20 +2,20 @@ package AndreiBike;
 
 import java.awt.*;
 
-public class GameBack implements Constants{
+public class GameBack implements Constants {
 
-	private Color color;
+  private Color color;
 
-	public GameBack() {
-		color = Color.PINK;
-	}
+  public GameBack() {
+    color = Color.PINK;
+  }
 
-	// Functions
+  // Functions
 
-	public void draw(Graphics2D g) {
-		g.setColor(color);
-		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, GamePanel.WIDTH, INFOPANEL);
-	}
+  public void draw(Graphics2D g) {
+    g.setColor(color);
+    g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+    g.setColor(Color.GRAY);
+    g.fillRect(0, 0, GamePanel.WIDTH, INFOPANEL);
+  }
 }
