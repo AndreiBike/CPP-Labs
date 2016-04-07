@@ -28,7 +28,6 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   private boolean gameOver = false;
   private boolean win = false;
   private boolean botOrPlayer;
-  private int PAUSE_WIDTH;
   public static GameBack Background;
   public static Player player;
   public static ArrayList<Bullet> bullets;
@@ -48,6 +47,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     setSize(WIDTH, HEIGHT);
     setTitle("BubbleTank AndreiBike");
     setLocationRelativeTo(null);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
     setResizable(false);
   }
 
@@ -80,17 +80,17 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   }
 
   private void gamePause() {
-    JButton cont = new JButton("Продолжить");
-    JFrame pframe = new JFrame("Пауза");
+    JButton cont = new JButton("Continue");
+    JFrame pframe = new JFrame("Pause");
     JPanel ppanel = new JPanel();
-    JLabel plabel = new JLabel("Пауза");
+    JLabel plabel = new JLabel("Pause");
     setVisible(false);
     pframe.setVisible(true);
     cont.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     cont.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setFont(new Font("Verdana", Font.ITALIC, 20));
-    pframe.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
+    pframe.setSize(new Dimension(PAUSE_WIDTH , PAUSE_HEIDTH));
     pframe.setLocationRelativeTo(null);
     setResizable(false);
     ppanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
@@ -115,11 +115,11 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
   public void GameOver() {
 
-    JButton gotomenu = new JButton("В меню");
+    JButton gotomenu = new JButton("Go to menu");
     JFrame over = new JFrame("Game Over");
     JPanel opanel = new JPanel();
-    JLabel glabel = new JLabel("Вы проиграли");
-    JLabel wlabel = new JLabel("Победа!!!");
+    JLabel glabel = new JLabel("You lose");
+    JLabel wlabel = new JLabel("You win!!!");
     JLabel point = new JLabel();
     gotomenu.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     gotomenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -209,7 +209,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         double dx = ex - bx;
         double dy = ey - by;
         double dist = Math.sqrt(dx * dx + dy * dy);
-        if ((int) dist < (int) (e.getR() + b.getR())) {
+        if ((int) dist < (int) (e.getR() + b.getRadius())) {
           e.hit();
           bullets.remove(j);
           j--;

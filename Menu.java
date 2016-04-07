@@ -25,8 +25,8 @@ public class Menu extends JFrame implements Constants {
   JLabel label = new JLabel("Âubble tank");
   JLabel levelLabel = new JLabel("Level");
   JButton playButton = new JButton("Play");
-  JButton settingsButton = new JButton("Settings");
-  JButton exitButton = new JButton("Exit");
+  JButton settingsButton = new JButton("Exit");
+  JButton exitButton = new JButton("Settings");
   JButton playPC = new JButton("PC plays");
   static int min = LMIN;
   static int max = LMAX;
@@ -107,6 +107,5 @@ public class Menu extends JFrame implements Constants {
         panel2.start();
       }
     });
-
   }
 }
