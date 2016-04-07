@@ -103,8 +103,8 @@ public class Menu extends JFrame implements Constants {
     playPC.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         setVisible(false);
-        GamePanel panel2 = new GamePanel(chooselevel, true);
-        panel2.start();
+        GamePanel gamePanel = new GamePanel(chooselevel, true);
+        gamePanel.start();
       }
     });
   }

@@ -6,7 +6,7 @@ public class Enemy implements Constants {
 
   private double x;
   private double y;
-  private int r;
+  private int radius;
   private double speed;
   private double dx;
   private double dy;
@@ -23,8 +23,8 @@ public class Enemy implements Constants {
         y = INFO_PANEL + 2 * RAD1;
         speed = SPEED1;
         health = HEALTH1;
-        r = RAD1;
-        double angle = Math.toRadians(Math.random() * 360);
+        radius = RAD1;
+        double angle = Math.toRadians(Math.random() * CIRCLE);
         dx = Math.sin(angle) * speed;
         dy = Math.cos(angle) * speed;
         break;
@@ -35,8 +35,8 @@ public class Enemy implements Constants {
         y = INFO_PANEL + 2 * RAD2;
         speed = SPEED2;
         health = HEALTH2;
-        r = RAD2;
-        double angle2 = Math.toRadians(Math.random() * 360);
+        radius = RAD2;
+        double angle2 = Math.toRadians(Math.random() * CIRCLE);
         dx = Math.sin(angle2) * speed;
         dy = Math.cos(angle2) * speed;
         break;
@@ -47,7 +47,7 @@ public class Enemy implements Constants {
         y = INFO_PANEL + 2 * RAD3;
         speed = SPEED3;
         health = HEALTH3;
-        r = RAD3;
+        radius = RAD3;
         double angle3 = Math.toRadians(Math.random() * CIRCLE);
         dx = Math.sin(angle3) * speed;
         dy = Math.cos(angle3) * speed;
@@ -58,26 +58,26 @@ public class Enemy implements Constants {
   public void update() {
     x += dx;
     y += dy;
-    if (x < r && dx < 0) {
+    if (x < radius && dx < 0) {
       dx = -dx;
     }
-    if (x > GamePanel.WIDTH - r && dx > 0) {
+    if (x > GamePanel.WIDTH - radius && dx > 0) {
       dx = -dx;
     }
-    if (y < INFO_PANEL + r && dy < 0) {
+    if (y < INFO_PANEL + radius && dy < 0) {
       dy = -dy;
     }
-    if (y > GamePanel.HEIGHT - r && dy > 0) {
+    if (y > GamePanel.HEIGHT - radius && dy > 0) {
       dy = -dy;
     }
   }
 
   public void draw(Graphics2D g) {
     g.setColor(color);
-    g.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+    g.fillOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
     g.setStroke(new BasicStroke(3));
     g.setColor(color.darker());
-    g.drawOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+    g.drawOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
     g.setStroke(new BasicStroke(2));
   }
 
@@ -102,7 +102,7 @@ public class Enemy implements Constants {
   }
 
   public int getR() {
-    return r;
+    return radius;
   }
 
   public static int getPoint() {

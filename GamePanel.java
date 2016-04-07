@@ -90,7 +90,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     cont.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     plabel.setFont(new Font("Verdana", Font.ITALIC, 20));
-    pframe.setSize(new Dimension(PAUSE_WIDTH , PAUSE_HEIDTH));
+    pframe.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
     pframe.setLocationRelativeTo(null);
     setResizable(false);
     ppanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
@@ -98,7 +98,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     ppanel.add(plabel);
     ppanel.add(Box.createRigidArea(new Dimension(0, YAREA_15)));
     ppanel.add(cont);
-    ppanel.add(Box.createRigidArea(new Dimension(0,YAREA_25)));
+    ppanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     pframe.add(ppanel);
     ppanel.setVisible(true);
 
@@ -127,7 +127,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     glabel.setFont(new Font("Verdana", Font.ITALIC, 20));
     point.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     point.setFont(new Font("Verdana", Font.ITALIC, 15));
-    point.setText("—чет - " + Integer.toString(Enemy.getPoint()));
+    point.setText("Points - " + Integer.toString(Enemy.getPoint()));
     wlabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     wlabel.setFont(new Font("Calibri", Font.ITALIC, 30));
     over.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
@@ -277,7 +277,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   }
 
   private void gameDraw() {
-    java.awt.Graphics g2 = this.getGraphics();
-    g2.drawImage(image, 0, 0, null);
+    java.awt.Graphics graphics2 = this.getGraphics();
+    graphics2.drawImage(image, 0, 0, null);
   }
 }
