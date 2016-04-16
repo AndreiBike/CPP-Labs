@@ -2,9 +2,10 @@ package AndreiBike;
 
 import java.awt.*;
 
-public class Player {
+public class Player implements Constants {
 
   private static final double CRITICAL_DISTANCE = 100;
+  private static double oldEnemyX, oldEnemyY;
   private double x;
   private double y;
   private int radius = 20;
@@ -90,32 +91,63 @@ public class Player {
     return false;
   }
 
-  public void bot(double enemyX, double enemyY) {
+  public void botFight() {
+    GamePanel.bullets.add(new Bullet());
+  }
 
+  public void botMove(double enemyX, double enemyY) {
     double distance;
     distance = Math.sqrt((enemyX - x) * (enemyX - x) + (enemyY - y) * (enemyY - y));
     if (distance < CRITICAL_DISTANCE) {
       if (enemyX > x && x > 0) {
-        x -= speed;
+        if (oldEnemyX < enemyX) {
+          x -= speed;
+        }
+        if (oldEnemyX > enemyX) {
+          x += speed;
+        }
       }
       if (enemyX < x && x < GamePanel.WIDTH - radius) {
-        x += speed;
+        if (oldEnemyX < enemyX) {
+          x += speed;
+        }
+        if (oldEnemyX > enemyX) {
+          x -= speed;
+        }
       }
-      if (enemyY > y && y < GamePanel.HEIGHT - radius) {
-        y += speed;
+      if (enemyY > y && y > INFO_PANEL + radius) {
+        if (oldEnemyY < enemyY) {
+          y += speed;
+        }
+        if (oldEnemyY > enemyY) {
+          y -= speed;
+        }
       }
-      if (enemyY < y && y > 65) {
-        y -= speed;
+      if (enemyY < y && y < GamePanel.HEIGHT - radius) {
+        if (oldEnemyY < enemyY) {
+          y -= speed;
+        }
+        if (oldEnemyY > enemyY) {
+          y += speed;
+        }
       }
 
     } else {
-      GamePanel.bullets.add(new Bullet());
+
       if (enemyX > x && x > 0) {
         x += speed;
       }
       if (enemyX < x && x < GamePanel.WIDTH - radius) {
         x -= speed;
       }
+      if (enemyY > y && y > INFO_PANEL + radius) {
+        y += speed;
+      }
+      if (enemyY < y && y < GamePanel.HEIGHT - radius) {
+        y += speed;
+      }
     }
+    oldEnemyX = enemyX;
+    oldEnemyY = enemyY;
   }
 }

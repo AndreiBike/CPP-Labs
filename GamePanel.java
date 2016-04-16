@@ -24,7 +24,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   private Thread thread;
   private int numWave;
   private BufferedImage image;
-  private Graphics2D g;
+  private Graphics2D graphics;
   private boolean gameOver = false;
   private boolean win = false;
   private boolean botOrPlayer;
@@ -162,7 +162,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
   public void run() {
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    g = (Graphics2D) image.getGraphics();
+    graphics = (Graphics2D) image.getGraphics();
     Background = new GameBack();
     player = new Player();
     bullets = new ArrayList<Bullet>();
@@ -178,6 +178,9 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     // Update player
     if (botOrPlayer == false) {
       player.update();
+    }
+    else{
+      player.botFight();
     }
     // Update bullet
     for (int i = 0; i < bullets.size(); i++) {
@@ -225,15 +228,15 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     // Crash enemy and player
     for (int i = 0; i < enemy.size(); i++) {
       Enemy e = enemy.get(i);
-      double ex = e.getX();
-      double ey = e.getY();
+      double enemyX = e.getX();
+      double enemyY = e.getY();
       if (botOrPlayer == true) {
-        player.bot(ex, ey);
+        player.botMove(enemyX, enemyY);
       }
-      double px = player.getX();
-      double py = player.getY();
-      double dx = ex - px;
-      double dy = ey - py;
+      double playerX = player.getX();
+      double playerY = player.getY();
+      double dx = enemyX - playerX;
+      double dy = enemyY - playerY;
       double dist = Math.sqrt(dx * dx + dy * dy);
       if ((int) dist < (int) (player.getR() + e.getR())) {
         e.hit();
@@ -258,21 +261,21 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
   public void gameRender() {
     // Draw background
-    Background.draw(g);
+    Background.draw(graphics);
     // Draw player
-    player.draw(g);
-    player.draw2(g);
+    player.draw(graphics);
+    player.draw2(graphics);
     // Draw bullet
     for (int i = 0; i < bullets.size(); i++) {
-      bullets.get(i).draw(g);
+      bullets.get(i).draw(graphics);
     }
     // Draw enemy
     for (int i = 0; i < enemy.size(); i++) {
-      enemy.get(i).draw(g);
+      enemy.get(i).draw(graphics);
 
     }
     if (wave.showWave()) {
-      wave.draw(g);
+      wave.draw(graphics);
     }
   }
 
