@@ -1,4 +1,4 @@
-package AndreiBike;
+package BubbleTank;
 
 public class GameStart {
 
@@ -7,3 +7,4 @@ public class GameStart {
     menu.setVisible(true);
   }
 }
+

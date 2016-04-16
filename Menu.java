@@ -1,12 +1,16 @@
-package AndreiBike;
+package BubbleTank;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,13 +24,14 @@ public class Menu extends JFrame implements Constants {
 
 
   private static final long serialVersionUID = 1L;
-
-  private int chooselevel = LMIN;
+  private int chooselevel = 1;
+  private int chooseFileLevel;
   JLabel label = new JLabel("Âubble tank");
   JLabel levelLabel = new JLabel("Level");
   JButton playButton = new JButton("Play");
   JButton settingsButton = new JButton("Exit");
   JButton exitButton = new JButton("Settings");
+  JButton openSaveGame = new JButton("Open save game");
   JButton playPC = new JButton("PC plays");
   static int min = LMIN;
   static int max = LMAX;
@@ -54,6 +59,8 @@ public class Menu extends JFrame implements Constants {
     levelLabel.setFont(new Font("Calibri", Font.ITALIC, 15));
     playButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     playButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    openSaveGame.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    openSaveGame.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     settingsButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     settingsButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     exitButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
@@ -65,6 +72,8 @@ public class Menu extends JFrame implements Constants {
     panel.add(label);
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     panel.add(playButton);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(openSaveGame);
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     panel.add(levelLabel);
     panel.add(Level);
@@ -82,7 +91,7 @@ public class Menu extends JFrame implements Constants {
     playButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         setVisible(false);
-        GamePanel panel2 = new GamePanel(chooselevel, false);
+        GamePanel panel2 = new GamePanel(chooselevel ,false);
         panel2.start();
       }
     });
@@ -103,8 +112,42 @@ public class Menu extends JFrame implements Constants {
     playPC.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         setVisible(false);
-        GamePanel gamePanel = new GamePanel(chooselevel, true);
+        GamePanel gamePanel = new GamePanel(chooselevel,true);
         gamePanel.start();
+      }
+    });
+
+    openSaveGame.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        File file = null;
+        final JFileChooser openFile = new JFileChooser();
+        int gameSave;
+        gameSave = openFile.showOpenDialog(null);
+        if (gameSave == JFileChooser.APPROVE_OPTION) {
+          try {
+            file = openFile.getSelectedFile();
+            throw new IOException();
+          } catch (IOException ex) {
+          }
+          String gameReadFile = new String(file.getAbsolutePath());
+          System.out.println(gameReadFile);
+
+          try {
+           chooseFileLevel = FileWorker.readFromFile(gameReadFile);
+           if (chooseFileLevel == 0){
+             throw new IOException();
+           }
+           setVisible(false);
+           GamePanel.playSaveGame = true;
+           GamePanel gamePanel = new GamePanel(chooseFileLevel,false);
+           gamePanel.start();
+           
+          } catch (FileNotFoundException e) {
+            e.printStackTrace();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
       }
     });
   }

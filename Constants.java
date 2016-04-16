@@ -1,4 +1,4 @@
-package AndreiBike;
+package BubbleTank;
 
 public interface Constants {
   static final int WAIT_TIME = 10;
@@ -27,7 +27,8 @@ public interface Constants {
   static final int RANK_2 = 2;
   static final int RANK_3 = 3;
   static final int TYPE = 1;
-  static final String WIN_MESSAGE = "You destroyed all waves";
+  static final double TRUE_WAY = 1.0;
+  static final double FALSE_WAY = 0.0;
   static final int BUTTON_WIDTH = 200;
   static final int BUTTON_HEIDTH = 100;
   static final int PAUSE_WIDTH = 400;

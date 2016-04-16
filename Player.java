@@ -1,10 +1,13 @@
-package AndreiBike;
+package BubbleTank;
 
 import java.awt.*;
+import java.io.IOException;
 
-public class Player {
+public class Player implements Constants {
 
   private static final double CRITICAL_DISTANCE = 100;
+  private static double oldEnemyX, oldEnemyY;
+  private static double enemyX, enemyY;
   private double x;
   private double y;
   private int radius = 20;
@@ -13,6 +16,7 @@ public class Player {
   private String hpText = "Health - ";
   private String pointText = "Points - ";
   private Color color1;
+  private static int index = 0;
   public static boolean up;
   public static boolean down;
   public static boolean left;
@@ -28,6 +32,7 @@ public class Player {
     left = false;
     right = false;
     isFiring = false;
+    index = 0;
   }
 
   public double getX() {
@@ -43,7 +48,7 @@ public class Player {
   }
 
   public void update() {
-    if (up && y > 65) {
+    if (up && y > INFO_PANEL) {
       y -= speed;
     }
     if (down && y < GamePanel.HEIGHT - radius) {
@@ -57,7 +62,12 @@ public class Player {
     }
     if (isFiring) {
       GamePanel.bullets.add(new Bullet());
+      GamePanel.statementPlayer.add(TRUE_WAY);
+    } else {
+      GamePanel.statementPlayer.add(FALSE_WAY);
     }
+    GamePanel.statementPlayer.add(x);
+    GamePanel.statementPlayer.add(y);
   }
 
   public void draw(Graphics2D g) {
@@ -76,11 +86,14 @@ public class Player {
     g.setColor(Color.WHITE);
     g.setFont(new Font("consolas", Font.PLAIN, 20));
     g.drawString(s2, 250, 48);
-
   }
 
   public void hit() {
     health--;
+  }
+
+  public int getHealth() {
+    return health;
   }
 
   public boolean remove() {
@@ -90,32 +103,91 @@ public class Player {
     return false;
   }
 
-  public void bot(double enemyX, double enemyY) {
+  public void getCoord(double enemyX, double enemyY) {
+    Player.enemyX = enemyX;
+    Player.enemyY = enemyY;
+  }
 
+  public void botMove() {
+    GamePanel.bullets.add(new Bullet());
     double distance;
     distance = Math.sqrt((enemyX - x) * (enemyX - x) + (enemyY - y) * (enemyY - y));
     if (distance < CRITICAL_DISTANCE) {
       if (enemyX > x && x > 0) {
-        x -= speed;
+        if (oldEnemyX < enemyX) {
+          x -= speed;
+        }
+        if (oldEnemyX > enemyX) {
+          x += speed;
+        }
       }
       if (enemyX < x && x < GamePanel.WIDTH - radius) {
-        x += speed;
+        if (oldEnemyX < enemyX) {
+          x += speed;
+        }
+        if (oldEnemyX > enemyX) {
+          x -= speed;
+        }
       }
-      if (enemyY > y && y < GamePanel.HEIGHT - radius) {
-        y += speed;
+      if (enemyY > y && y > INFO_PANEL + radius) {
+        if (oldEnemyY < enemyY) {
+          y += speed;
+        }
+        if (oldEnemyY > enemyY) {
+          y -= speed;
+        }
       }
-      if (enemyY < y && y > 65) {
-        y -= speed;
+      if (enemyY < y && y < GamePanel.HEIGHT - radius) {
+        if (oldEnemyY < enemyY) {
+          y -= speed;
+        }
+        if (oldEnemyY > enemyY) {
+          y += speed;
+        }
       }
-
     } else {
-      GamePanel.bullets.add(new Bullet());
+
       if (enemyX > x && x > 0) {
         x += speed;
       }
       if (enemyX < x && x < GamePanel.WIDTH - radius) {
         x -= speed;
       }
+      if (enemyY > y && y > INFO_PANEL + radius) {
+        y += speed;
+      }
+      if (enemyY < y && y < GamePanel.HEIGHT - radius) {
+        y += speed;
+      }
     }
+    oldEnemyX = enemyX;
+    oldEnemyY = enemyY;
+    GamePanel.statementPlayer.add(TRUE_WAY);
+    GamePanel.statementPlayer.add(x);
+    GamePanel.statementPlayer.add(y);
+  }
+
+  public boolean updateSave() {
+    try {
+      if (GamePanel.statementPlayer.get(index) == TRUE_WAY) {
+        GamePanel.bullets.add(new Bullet());
+      }
+      index++;
+      x = GamePanel.statementPlayer.get(index);
+      index++;
+      y = GamePanel.statementPlayer.get(index);
+      index++;
+      if (index >= GamePanel.statementPlayer.size()) {
+        throw new IOException();
+      }
+
+    } catch (IOException e) {
+      return true;
+    }
+    return false;
+  }
+
+  public static void nullEnemyindex() {
+    index = 0;
   }
 }

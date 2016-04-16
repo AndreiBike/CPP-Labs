@@ -1,38 +1,29 @@
-package AndreiBike;
+package BubbleTank;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 
 public class Wave implements Constants {
 
   private int waveNumber;
-  private long waveTimer;
-  private long waveDelay;
-  private long waveTimerDiff;
-  private String waveText = "Wave - ";
   private boolean win = false;
   private int waveMultiplier;
+  private final String wave = "Wave - ";
 
   public Wave(int n) {
-    waveNumber = n;
-    waveTimer = 0;
-    waveDelay = WAVEDELAY;
-    waveTimerDiff = 0;
+    waveNumber = n - 1;
     waveMultiplier = WAVEMULTIPLIER;
   }
 
-  public boolean update() {
+  public int getWaveNumber() {
+    return waveNumber;
+  }
 
-    if (GamePanel.enemy.size() == 0 && waveTimer == 0) {
-      waveTimer = System.nanoTime();
-    }
-    if (waveTimer > 0) {
-      waveTimerDiff += (System.nanoTime() - waveTimer) / 1000000;
-      waveTimer = System.nanoTime();
-    }
-    if (waveTimerDiff > waveDelay) {
+  public boolean update() {
+    if (GamePanel.enemy.size() == 0) {
+      waveNumber++;
       win = createEnemy();
-      waveTimer = 0;
-      waveTimerDiff = 0;
     }
     return win;
   }
@@ -66,34 +57,19 @@ public class Wave implements Constants {
     if (waveNumber >= WAVE_3) {
       return true;
     }
-    waveNumber++;
+
+
     return false;
   }
 
-  public boolean showWave() {
-    if (waveTimer != 0) {
-      return true;
-    } else
-      return false;
+  public void upLevel() {
+    waveNumber++;
   }
 
   public void draw(Graphics2D g) {
-    String s;
-    double divider = waveDelay / 180;
-    double alpha = waveTimerDiff / divider;
-    alpha = 255 * Math.sin(Math.toRadians(alpha));
-    if (alpha < 0)
-      alpha = 0;
-    if (alpha > 255)
-      alpha = 255;
+    String s2 = wave + waveNumber;
+    g.setColor(Color.WHITE);
     g.setFont(new Font("consolas", Font.PLAIN, 20));
-    g.setColor(new Color(255, 255, 255, (int) alpha));
-    if (waveNumber < WAVE_3) {
-      s = waveText + waveNumber;
-    } else {
-      s = WIN_MESSAGE;
-    }
-    long length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-    g.drawString(s, GamePanel.WIDTH / 2 - (int) (length / 2), GamePanel.HEIGHT / 2);
+    g.drawString(s2, 500, 48);
   }
 }

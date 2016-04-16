@@ -1,4 +1,4 @@
-package AndreiBike;
+package BubbleTank;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -6,12 +6,14 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,13 +23,17 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   private static final long serialVersionUID = 1L;
   public static int WIDTH = 1200;
   public static int HEIGHT = 600;
-  private Thread thread;
+  public static ArrayList<Double> statementPlayer = new ArrayList<Double>();
+  public static ArrayList<Double> statementEnemy = new ArrayList<Double>();
   private int numWave;
+  private Thread thread;
   private BufferedImage image;
-  private Graphics2D g;
+  private Graphics2D graphics;
   private boolean gameOver = false;
   private boolean win = false;
+  private boolean endSave = false;
   private boolean botOrPlayer;
+  public static boolean playSaveGame;
   public static GameBack Background;
   public static Player player;
   public static ArrayList<Bullet> bullets;
@@ -36,10 +42,12 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   public static Menu menu;
   public static boolean pause = false;
 
+
   public GamePanel(int numWave, boolean botOrPlayer) {
     super();
-    this.botOrPlayer = botOrPlayer;
     this.numWave = numWave;
+    System.out.println(playSaveGame);
+    this.botOrPlayer = botOrPlayer;
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setFocusable(true);
     requestFocus();
@@ -52,6 +60,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   }
 
   // Functions
+
 
   public void start() {
     setVisible(true);
@@ -114,15 +123,18 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   }
 
   public void GameOver() {
-
     JButton gotomenu = new JButton("Go to menu");
+    JButton save = new JButton("Save replay");
     JFrame over = new JFrame("Game Over");
     JPanel opanel = new JPanel();
     JLabel glabel = new JLabel("You lose");
     JLabel wlabel = new JLabel("You win!!!");
     JLabel point = new JLabel();
+    JLabel replayFinished = new JLabel("Replay finished");
     gotomenu.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     gotomenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    save.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    save.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     glabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     glabel.setFont(new Font("Verdana", Font.ITALIC, 20));
     point.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -130,16 +142,24 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     point.setText("Points - " + Integer.toString(Enemy.getPoint()));
     wlabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     wlabel.setFont(new Font("Calibri", Font.ITALIC, 30));
+    replayFinished.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    replayFinished.setFont(new Font("Calibri", Font.ITALIC, 30));
     over.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
     over.setLocationRelativeTo(null);
     setResizable(false);
     opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     opanel.setLayout(new BoxLayout(opanel, BoxLayout.Y_AXIS));
 
-    if (!win) {
-      opanel.add(glabel);
+    if (!playSaveGame) {
+      if (win) {
+        opanel.add(wlabel);
+      } else {
+        opanel.add(glabel);
+      }
     } else {
-      opanel.add(wlabel);
+      opanel.add(replayFinished);
+      point.setVisible(false);
+      save.setEnabled(false);
     }
 
     opanel.add(Box.createRigidArea(new Dimension(0, YAREA_15)));
@@ -147,28 +167,59 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     opanel.add(gotomenu);
     opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    opanel.add(save);
+    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     over.add(opanel);
     over.setVisible(true);
 
     gotomenu.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
+        playSaveGame = false;
+        Player.nullEnemyindex();
+        Enemy.nullEnemyIndex();
+        Enemy.nullPoint();
+        GamePanel.statementPlayer.clear();
+        GamePanel.statementEnemy.clear();
         over.setVisible(false);
         menu.setVisible(true);
       }
     });
 
-    Enemy.nullPoint();
+    save.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent event) {
+        File file = null;
+        final JFileChooser saveFile = new JFileChooser();
+        int gameSave;
+        gameSave = saveFile.showSaveDialog(null);
+        if (gameSave == JFileChooser.APPROVE_OPTION) {
+          try {
+            file = saveFile.getSelectedFile();
+            System.out.println(file.getName());
+            throw new IOException();
+          } catch (IOException ex) {
+          }
+          try {
+            FileWorker.writeToFile(file, numWave, statementPlayer, statementEnemy);
+          } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
+      }
+    });
   }
 
   public void run() {
     image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    g = (Graphics2D) image.getGraphics();
+    graphics = (Graphics2D) image.getGraphics();
     Background = new GameBack();
     player = new Player();
     bullets = new ArrayList<Bullet>();
     enemy = new ArrayList<Enemy>();
     menu = new Menu();
+    System.out.println(numWave);
     wave = new Wave(numWave);
+
     playingProcess();
     setVisible(false);
     GameOver();
@@ -177,8 +228,13 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   public boolean gameUpdate() {
     // Update player
     if (botOrPlayer == false) {
-      player.update();
-    }
+      if (!playSaveGame) {
+        player.update();
+
+      } else {
+        endSave = player.updateSave();
+      }
+    } 
     // Update bullet
     for (int i = 0; i < bullets.size(); i++) {
       bullets.get(i).update();
@@ -222,18 +278,19 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         }
       }
     }
+
     // Crash enemy and player
     for (int i = 0; i < enemy.size(); i++) {
       Enemy e = enemy.get(i);
-      double ex = e.getX();
-      double ey = e.getY();
+      double enemyX = e.getX();
+      double enemyY = e.getY();
       if (botOrPlayer == true) {
-        player.bot(ex, ey);
+        player.getCoord(enemyX, enemyY);
       }
-      double px = player.getX();
-      double py = player.getY();
-      double dx = ex - px;
-      double dy = ey - py;
+      double playerX = player.getX();
+      double playerY = player.getY();
+      double dx = enemyX - playerX;
+      double dy = enemyY - playerY;
       double dist = Math.sqrt(dx * dx + dy * dy);
       if ((int) dist < (int) (player.getR() + e.getR())) {
         e.hit();
@@ -252,28 +309,32 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         }
       }
     }
+    if (botOrPlayer == true) {
+    player.botMove();
+    }
     win = wave.update();
+    if (endSave) {
+      return true;
+    }
     return false;
   }
 
   public void gameRender() {
     // Draw background
-    Background.draw(g);
+    Background.draw(graphics);
+    wave.draw(graphics);
     // Draw player
-    player.draw(g);
-    player.draw2(g);
+    player.draw(graphics);
+    player.draw2(graphics);
     // Draw bullet
     for (int i = 0; i < bullets.size(); i++) {
-      bullets.get(i).draw(g);
+      bullets.get(i).draw(graphics);
     }
     // Draw enemy
     for (int i = 0; i < enemy.size(); i++) {
-      enemy.get(i).draw(g);
-
+      enemy.get(i).draw(graphics);
     }
-    if (wave.showWave()) {
-      wave.draw(g);
-    }
+   
   }
 
   private void gameDraw() {

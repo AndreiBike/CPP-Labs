@@ -1,6 +1,8 @@
-package AndreiBike;
+package BubbleTank;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 
 public class GameBack implements Constants {
 

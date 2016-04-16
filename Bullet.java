@@ -1,4 +1,4 @@
-package AndreiBike;
+package BubbleTank;
 
 import java.awt.*;
 
@@ -13,13 +13,12 @@ public class Bullet implements Constants {
   // Constructor
 
   public Bullet() {
-
     x = GamePanel.player.getX();
     y = GamePanel.player.getY();
     color = Color.BLACK;
   }
 
-  // Metods
+  // Methods
 
   public boolean remove() {
     return y < INFO_PANEL ? true : false;
