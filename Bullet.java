@@ -21,7 +21,7 @@ public class Bullet implements Constants {
   // Methods
 
   public boolean remove() {
-    return y < INFO_PANEL ? true : false;
+    return y < INFO_PANEL_SIZE ? true : false;
   }
 
   public void update() {
@@ -30,7 +30,7 @@ public class Bullet implements Constants {
 
   public void draw(Graphics2D g) {
     g.setColor(color);
-    g.fillOval((int) x + SMXB, (int) y - SMYB, RADIUS, 2 * RADIUS);
+    g.fillOval((int) x + SHIFT_X_BULLET, (int) y - SHIFT_Y_BULLET, RADIUS, 2 * RADIUS);
 
   }
 

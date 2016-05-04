@@ -48,7 +48,7 @@ public class Menu extends JFrame implements Constants {
     Level.setFont(font);
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-    setSize(MWIDTH, MHEIDTH);
+    setSize(MENU_WIDTH, MENU_HEIDTH);
     setLocationRelativeTo(null);
     setResizable(false);
     panel.setBackground(Color.PINK);

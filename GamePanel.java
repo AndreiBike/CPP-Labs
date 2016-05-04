@@ -123,56 +123,56 @@ public class GamePanel extends JFrame implements Runnable, Constants {
   }
 
   public void GameOver() {
-    JButton gotomenu = new JButton("Go to menu");
+    JButton goToMenu = new JButton("Go to menu");
     JButton save = new JButton("Save replay");
     JFrame over = new JFrame("Game Over");
-    JPanel opanel = new JPanel();
-    JLabel glabel = new JLabel("You lose");
-    JLabel wlabel = new JLabel("You win!!!");
+    JPanel overPanel = new JPanel();
+    JLabel overLabel = new JLabel("You lose");
+    JLabel winLabel = new JLabel("You win!!!");
     JLabel point = new JLabel();
     JLabel replayFinished = new JLabel("Replay finished");
-    gotomenu.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
-    gotomenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    goToMenu.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    goToMenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     save.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     save.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    glabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    glabel.setFont(new Font("Verdana", Font.ITALIC, 20));
+    overLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    overLabel.setFont(new Font("Verdana", Font.ITALIC, 20));
     point.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     point.setFont(new Font("Verdana", Font.ITALIC, 15));
     point.setText("Points - " + Integer.toString(Enemy.getPoint()));
-    wlabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    wlabel.setFont(new Font("Calibri", Font.ITALIC, 30));
+    winLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    winLabel.setFont(new Font("Calibri", Font.ITALIC, 30));
     replayFinished.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     replayFinished.setFont(new Font("Calibri", Font.ITALIC, 30));
     over.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
     over.setLocationRelativeTo(null);
     setResizable(false);
-    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-    opanel.setLayout(new BoxLayout(opanel, BoxLayout.Y_AXIS));
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    overPanel.setLayout(new BoxLayout(overPanel, BoxLayout.Y_AXIS));
 
     if (!playSaveGame) {
       if (win) {
-        opanel.add(wlabel);
+        overPanel.add(winLabel);
       } else {
-        opanel.add(glabel);
+        overPanel.add(overLabel);
       }
     } else {
-      opanel.add(replayFinished);
+      overPanel.add(replayFinished);
       point.setVisible(false);
       save.setEnabled(false);
     }
 
-    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_15)));
-    opanel.add(point);
-    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-    opanel.add(gotomenu);
-    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-    opanel.add(save);
-    opanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
-    over.add(opanel);
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_15)));
+    overPanel.add(point);
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    overPanel.add(goToMenu);
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    overPanel.add(save);
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    over.add(overPanel);
     over.setVisible(true);
 
-    gotomenu.addActionListener(new ActionListener() {
+    goToMenu.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         playSaveGame = false;
         Player.nullEnemyindex();
@@ -234,7 +234,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
       } else {
         endSave = player.updateSave();
       }
-    } 
+    }
     // Update bullet
     for (int i = 0; i < bullets.size(); i++) {
       bullets.get(i).update();
@@ -252,6 +252,25 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
     // Crash enemy and bullet
 
+    crashEnemyAndBullet();
+
+
+    // Crash enemy and player
+    if (crashEnemyAndPlayer()) {
+      return true;
+    }
+
+    if (botOrPlayer == true) {
+      player.botMove();
+    }
+    win = wave.update();
+    if (endSave) {
+      return true;
+    }
+    return false;
+  }
+
+  public void crashEnemyAndBullet() {
     for (int i = 0; i < enemy.size(); i++) {
       Enemy e = enemy.get(i);
       double ex = e.getX();
@@ -278,8 +297,9 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         }
       }
     }
+  }
 
-    // Crash enemy and player
+  public boolean crashEnemyAndPlayer() {
     for (int i = 0; i < enemy.size(); i++) {
       Enemy e = enemy.get(i);
       double enemyX = e.getX();
@@ -309,13 +329,6 @@ public class GamePanel extends JFrame implements Runnable, Constants {
         }
       }
     }
-    if (botOrPlayer == true) {
-    player.botMove();
-    }
-    win = wave.update();
-    if (endSave) {
-      return true;
-    }
     return false;
   }
 
@@ -334,7 +347,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     for (int i = 0; i < enemy.size(); i++) {
       enemy.get(i).draw(graphics);
     }
-   
+
   }
 
   private void gameDraw() {

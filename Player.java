@@ -48,7 +48,7 @@ public class Player implements Constants {
   }
 
   public void update() {
-    if (up && y > INFO_PANEL) {
+    if (up && y > INFO_PANEL_SIZE) {
       y -= speed;
     }
     if (down && y < GamePanel.HEIGHT - radius) {
@@ -129,7 +129,7 @@ public class Player implements Constants {
           x -= speed;
         }
       }
-      if (enemyY > y && y > INFO_PANEL + radius) {
+      if (enemyY > y && y > INFO_PANEL_SIZE + radius) {
         if (oldEnemyY < enemyY) {
           y += speed;
         }
@@ -153,7 +153,7 @@ public class Player implements Constants {
       if (enemyX < x && x < GamePanel.WIDTH - radius) {
         x -= speed;
       }
-      if (enemyY > y && y > INFO_PANEL + radius) {
+      if (enemyY > y && y > INFO_PANEL_SIZE + radius) {
         y += speed;
       }
       if (enemyY < y && y < GamePanel.HEIGHT - radius) {

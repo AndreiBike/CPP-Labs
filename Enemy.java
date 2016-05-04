@@ -22,10 +22,10 @@ public class Enemy implements Constants {
     switch (rank) {
       case (1):
         color = Color.RED;
-        y = INFO_PANEL + 2 * RAD1;
-        speed = SPEED1;
-        health = HEALTH1;
-        radius = RAD1;
+        y = INFO_PANEL_SIZE + 2 * RAD_1;
+        speed = SPEED_1;
+        health = HEALTH_1;
+        radius = RAD_1;
         double angle;
         if (!GamePanel.playSaveGame) {
           x = Math.random() * GamePanel.WIDTH;
@@ -46,10 +46,10 @@ public class Enemy implements Constants {
 
       case (2):
         color = Color.BLUE;
-        y = INFO_PANEL + 2 * RAD2;
-        speed = SPEED2;
-        health = HEALTH2;
-        radius = RAD2;
+        y = INFO_PANEL_SIZE + 2 * RAD_2;
+        speed = SPEED_2;
+        health = HEALTH_2;
+        radius = RAD_2;
         double angle2;
         if (!GamePanel.playSaveGame) {
           x = Math.random() * GamePanel.WIDTH;
@@ -68,10 +68,10 @@ public class Enemy implements Constants {
 
       case (3):
         color = Color.GRAY;
-        y = INFO_PANEL + 2 * RAD3;
-        speed = SPEED3;
-        health = HEALTH3;
-        radius = RAD3;
+        y = INFO_PANEL_SIZE + 2 * RAD_3;
+        speed = SPEED_3;
+        health = HEALTH_3;
+        radius = RAD_3;
         double angle3;
         if (!GamePanel.playSaveGame) {
           x = Math.random() * GamePanel.WIDTH;
@@ -99,7 +99,7 @@ public class Enemy implements Constants {
     if (x > GamePanel.WIDTH - radius && dx > 0) {
       dx = -dx;
     }
-    if (y < INFO_PANEL + radius && dy < 0) {
+    if (y < INFO_PANEL_SIZE + radius && dy < 0) {
       dy = -dy;
     }
     if (y > GamePanel.HEIGHT - radius && dy > 0) {

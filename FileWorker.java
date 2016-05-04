@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class FileWorker {
 
-  private final static String PROVERKA = "BubbleTank";
+  private final static String CHECK = "BubbleTank";
 
   public static void writeToFile(File file, int numWave, ArrayList<Double> statementPlayer,
       ArrayList<Double> statementEnemy) throws IOException {
@@ -23,7 +23,7 @@ public class FileWorker {
       }
       PrintWriter out = new PrintWriter(file.getAbsoluteFile());
       try {
-        out.println(PROVERKA);
+        out.println(CHECK);
         out.println(numWave);
         out.println(statementPlayer.size());
         for (int i = 0; i < statementPlayer.size(); i++) {
@@ -48,7 +48,7 @@ public class FileWorker {
       try {
         String information;
         information = in.readLine();
-        if (!information.equals(PROVERKA)) {
+        if (!information.equals(CHECK)) {
           throw new IOException();
         }
         information = in.readLine();
