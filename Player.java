@@ -147,16 +147,16 @@ public class Player implements Constants {
       }
     } else {
 
-      if (enemyX > x && x > 0) {
+      if (enemyX > x && x >= 0) {
         x += speed;
       }
-      if (enemyX < x && x < GamePanel.WIDTH - radius) {
+      if (enemyX < x && x <= GamePanel.WIDTH - radius) {
         x -= speed;
       }
-      if (enemyY > y && y > INFO_PANEL_SIZE + radius) {
+      if (enemyY > y && y >= INFO_PANEL_SIZE + radius) {
         y += speed;
       }
-      if (enemyY < y && y < GamePanel.HEIGHT - radius) {
+      if (enemyY < y && y <= GamePanel.HEIGHT - radius) {
         y += speed;
       }
     }

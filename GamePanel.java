@@ -124,7 +124,8 @@ public class GamePanel extends JFrame implements Runnable, Constants {
 
   public void GameOver() {
     JButton goToMenu = new JButton("Go to menu");
-    JButton save = new JButton("Save replay");
+    JButton save = new JButton("Save replay in . . .");
+    JButton saveInPlase = new JButton ("Save");
     JFrame over = new JFrame("Game Over");
     JPanel overPanel = new JPanel();
     JLabel overLabel = new JLabel("You lose");
@@ -135,6 +136,8 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     goToMenu.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     save.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     save.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    saveInPlase.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    saveInPlase.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     overLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     overLabel.setFont(new Font("Verdana", Font.ITALIC, 20));
     point.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -160,6 +163,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
       overPanel.add(replayFinished);
       point.setVisible(false);
       save.setEnabled(false);
+      saveInPlase.setEnabled(false); 
     }
 
     overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_15)));
@@ -168,6 +172,8 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     overPanel.add(goToMenu);
     overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     overPanel.add(save);
+    overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    overPanel.add(saveInPlase);
     overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     over.add(overPanel);
     over.setVisible(true);
@@ -185,6 +191,18 @@ public class GamePanel extends JFrame implements Runnable, Constants {
       }
     });
 
+    saveInPlase.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent event){
+        File file = null;
+        try {
+          FileWorker.writeToFile(file, numWave, statementPlayer, statementEnemy, false);
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    });
+    
     save.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         File file = null;
@@ -199,7 +217,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
           } catch (IOException ex) {
           }
           try {
-            FileWorker.writeToFile(file, numWave, statementPlayer, statementEnemy);
+            FileWorker.writeToFile(file, numWave, statementPlayer, statementEnemy, true);
           } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
