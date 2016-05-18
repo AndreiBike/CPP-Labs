@@ -224,7 +224,8 @@ public class Menu extends JFrame implements Constants {
           System.out.println(gameReadFile);
 
           try {
-            chooseFileLevel = FileWorker.readFromFile(gameReadFile, Movement.replay);
+            chooseFileLevel = FileWorker.readFromFile(gameReadFile,
+                Movement.replay);
             if (chooseFileLevel == 0) {
               throw new IOException();
             }

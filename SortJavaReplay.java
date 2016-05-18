@@ -60,7 +60,7 @@ public class SortJavaReplay implements Constants {
     
     try {
       FileWorker.saveBestAndWorstGame(strList[0], true, move);
-      FileWorker.saveBestAndWorstGame(strList[strList.length-1], false, move);
+      FileWorker.saveBestAndWorstGame(strList[strList.length - 1], false, move);
     } catch (IOException e1) {
       e1.printStackTrace();
     }
@@ -68,7 +68,8 @@ public class SortJavaReplay implements Constants {
     return strList;
   }
 
-  public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+  public static <K, V extends Comparable<? super V>> Map<K, V>
+  sortByValue(Map<K, V> map) {
     Map<K, V> result = new LinkedHashMap<>();
     Stream<Map.Entry<K, V>> st = map.entrySet().stream();
     st.sorted(Map.Entry.comparingByValue())

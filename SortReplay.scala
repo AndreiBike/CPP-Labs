@@ -15,6 +15,7 @@ class SortReplay {
   var bestGame = "bestGame"
   val directory = "E:/replays/"
   var move = "move"
+  var step = "step"
 
   def sort(operation: Movement) = {
     var i = 0
@@ -49,13 +50,12 @@ class SortReplay {
       }
     }
 
-   
-    var stepp = resultList(0).toString()
-    worstGame = stepp.substring(1, stepp.indexOf(','))
+    step = resultList(0).toString()
+    worstGame = step.substring(1, step.indexOf(','))
     print("Worst Replay: " + worstGame + "\n")
     FileWorker.saveBestAndWorstGame(worstGame, false, move)
 
-    var step = resultList(fileNames.length - 1).toString()
+    step = resultList(fileNames.length - 1).toString()
     bestGame = step.substring(1, step.indexOf(','))
     print("Best Replay: " + bestGame + "\n")
     FileWorker.saveBestAndWorstGame(bestGame, true, move)
@@ -66,8 +66,8 @@ class SortReplay {
     val n = xs.length / 2
     if (n == 0) xs
     else {
-      def merge(xs: List[(String, Int)], ys: List[(String, Int)]): List[(String, Int)] =
-        (xs, ys) match {
+      def merge(xs: List[(String, Int)], ys: List[(String, Int)]): 
+      List[(String, Int)] = (xs, ys) match {
           case (Nil, ys) => ys
           case (xs, Nil) => xs
           case (x :: xs1, y :: ys1) =>

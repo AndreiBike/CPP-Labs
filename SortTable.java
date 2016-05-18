@@ -17,7 +17,8 @@ public class SortTable implements Constants {
     dialog = new JDialog();
     dialog.setTitle(name);
 
-    DefaultTableModel model = new DefaultTableModel(new Object[] {"Sorted games"}, 0);
+    DefaultTableModel model = 
+        new DefaultTableModel(new Object[] {"Sorted games"}, 0);
     table = new JTable(model);
     dialog.setLayout(new BorderLayout());
     dialog.add(new JScrollPane(table), BorderLayout.CENTER);

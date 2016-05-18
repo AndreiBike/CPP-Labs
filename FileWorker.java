@@ -15,7 +15,7 @@ public class FileWorker implements Constants {
 
   private final static String CHECK = "BubbleTank";
   private static int tmp = 1;
-  
+
 
   public static String[] numberOfFiles() {
     File listFile = new File(FILENAME);
@@ -64,10 +64,11 @@ public class FileWorker implements Constants {
     tmp = 1;
   }
 
-  public static int readFromFile(String filename, Movement doing) throws FileNotFoundException {
+  public static int readFromFile(String filename, Movement doing) 
+      throws FileNotFoundException {
     int waveNum;
-    int shagiPlayer;
-    int shagiEnemy;
+    int movePlayer;
+    int moveEnemy;
     try {
       BufferedReader in = new BufferedReader(new FileReader(filename));
       try {
@@ -79,14 +80,14 @@ public class FileWorker implements Constants {
         information = in.readLine();
         waveNum = Integer.valueOf(information);
         information = in.readLine();
-        shagiPlayer = Integer.valueOf(information);
-        for (int i = 0; i < shagiPlayer; i++) {
+        movePlayer = Integer.valueOf(information);
+        for (int i = 0; i < movePlayer; i++) {
           information = in.readLine();
           GamePanel.statementPlayer.add(Double.valueOf(information));
         }
         information = in.readLine();
-        shagiEnemy = Integer.valueOf(information);
-        for (int i = 0; i < shagiEnemy; i++) {
+        moveEnemy = Integer.valueOf(information);
+        for (int i = 0; i < moveEnemy; i++) {
           information = in.readLine();
           GamePanel.statementEnemy.add(Double.valueOf(information));
         }
@@ -107,10 +108,10 @@ public class FileWorker implements Constants {
         return waveNum;
       case movement:
         clearData();
-        return shagiPlayer;
+        return movePlayer;
       case enemy:
         clearData();
-        return shagiEnemy / 2;
+        return moveEnemy / 2;
       default:
         return waveNum;
     }
@@ -121,7 +122,8 @@ public class FileWorker implements Constants {
     GamePanel.statementPlayer.clear();
   }
 
-  public static void saveBestAndWorstGame(String filename, boolean bestOrWorst, String move)
+  public static void saveBestAndWorstGame(String filename,
+     boolean bestOrWorst, String move)
       throws IOException {
     try {
       File oldFile = new File(filename);
