@@ -1,5 +1,5 @@
 package BubbleTank;
 
 public enum Movement {
-  level, movement, replay, enemy;
+  level, movement, replay, enemy, statistic;
 }

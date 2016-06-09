@@ -28,13 +28,17 @@ public class FileWorker implements Constants {
 
   public static void writeToFile(File file, int numWave, ArrayList<Double> statementPlayer,
       ArrayList<Double> statementEnemy, boolean status) throws IOException {
-
+    File notationFile = null;
+    SortReplay notation = new SortReplay();
     try {
       if (!status) {
         file = new File(FILENAME);
         file.mkdirs();
+        notationFile = new File(NOTATION_FILENAME);
+        notationFile.mkdirs();
         do {
           file = new File(FILENAME + "generate_replay_" + String.valueOf(tmp));
+          notationFile = new File(NOTATION_FILENAME + "notation_" + String.valueOf(tmp));
           tmp++;
         } while (file.exists());
       }
@@ -43,20 +47,26 @@ public class FileWorker implements Constants {
       }
 
       PrintWriter out = new PrintWriter(file.getAbsoluteFile());
+      PrintWriter notationOut = new PrintWriter(notationFile.getAbsoluteFile());
 
       try {
         out.println(CHECK);
+        notationOut.println(notation.chooser(CHECK));
         out.println(numWave);
+        notationOut.println(notation.chooser(numWave));
         out.println(statementPlayer.size());
         for (int i = 0; i < statementPlayer.size(); i++) {
           out.println(statementPlayer.get(i));
+          notationOut.println(notation.chooser((statementPlayer.get(i).toString())));
         }
         out.println(statementEnemy.size());
         for (int i = 0; i < statementEnemy.size(); i++) {
           out.println(statementEnemy.get(i));
+          notationOut.println(notation.chooser(statementEnemy.get(i)));
         }
       } finally {
         out.close();
+        notationOut.close();
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -64,8 +74,7 @@ public class FileWorker implements Constants {
     tmp = 1;
   }
 
-  public static int readFromFile(String filename, Movement doing) 
-      throws FileNotFoundException {
+  public static int readFromFile(String filename, Movement doing) throws FileNotFoundException {
     int waveNum;
     int movePlayer;
     int moveEnemy;
@@ -122,8 +131,7 @@ public class FileWorker implements Constants {
     GamePanel.statementPlayer.clear();
   }
 
-  public static void saveBestAndWorstGame(String filename,
-     boolean bestOrWorst, String move)
+  public static void saveBestAndWorstGame(String filename, boolean bestOrWorst, String move)
       throws IOException {
     try {
       File oldFile = new File(filename);

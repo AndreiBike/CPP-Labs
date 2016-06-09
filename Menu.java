@@ -43,6 +43,7 @@ public class Menu extends JFrame implements Constants {
   JButton sortByEnemies = new JButton("SortByEnemies");
   JButton openSaveGame = new JButton("Open save game");
   JButton playPC = new JButton("PC plays");
+  JButton gameStatistic = new JButton ("Game Statistic");
   JCheckBox scalaBox = new JCheckBox("Scala");
   static int min = LMIN;
   static int max = LMAX;
@@ -72,6 +73,9 @@ public class Menu extends JFrame implements Constants {
     levelLabel.setFont(new Font("Calibri", Font.ITALIC, 15));
     playButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     playButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    playButton.setForeground(Color.GREEN);
+    playButton.setBackground(Color.RED);
+    playButton.setFont(new Font("Times New Roman", Font.ITALIC, 15));
     openSaveGame.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     openSaveGame.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     settingsButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
@@ -82,6 +86,8 @@ public class Menu extends JFrame implements Constants {
     sortByEnemies.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     sortByMoves.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     sortByMoves.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    gameStatistic.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
+    gameStatistic.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     exitButton.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
     exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     playPC.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIDTH));
@@ -107,8 +113,11 @@ public class Menu extends JFrame implements Constants {
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     panel.add(sortByEnemies);
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+    panel.add(gameStatistic);
+    panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     panel.add(settingsButton);
     panel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
+   
     add(panel);
     pushButton();
 
@@ -183,6 +192,18 @@ public class Menu extends JFrame implements Constants {
       }
     });
 
+    gameStatistic.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+
+        SortReplay sorter = new SortReplay();
+        sorter.sort(Movement.statistic);
+        int move = sorter.getMoveStatistic();
+        int enemy = sorter.getEnemyStatistic();
+        int level = sorter.getLevelStatistic(); 
+        new StatisticTable(enemy, move, level);
+      }
+    });
+    
     scalaBox.addItemListener(new ItemListener() {
       public void itemStateChanged(ItemEvent event) {
         if (scalaOrJava == true) {

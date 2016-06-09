@@ -6,7 +6,7 @@ public interface Constants {
   static final int SHIFT_X_BULLET = 10;
   static final int SHIFT_Y_BULLET = 2;
   static final int MENU_WIDTH = 400;
-  static final int MENU_HEIDTH = 600;
+  static final int MENU_HEIDTH = 700;
   static final int LMIN = 1;
   static final int LMAX = 14;
   static final int SPEED_1 = 5;
@@ -30,12 +30,15 @@ public interface Constants {
   static final double FALSE_WAY = 0.0;
   static final int BUTTON_WIDTH = 200;
   static final int BUTTON_HEIDTH = 100;
-  static final int PAUSE_WIDTH = 400;
-  static final int PAUSE_HEIDTH = 550;
+  static final int OVER_WIDTH = 300;
+  static final int OVER_HEIDTH = 300;
+  static final int PAUSE_WIDTH = 300;
+  static final int PAUSE_HEIDTH = 150;
   static final int YAREA_25 = 25;
   static final int YAREA_15 = 15;
   static final int CIRCLE = 360;
   static final String BEST_GAME = "E:/BestGame";
   static final String WORST_GAME = "E:/WorstGame";
   final static String FILENAME = "E:/replays/";
+  final static String NOTATION_FILENAME = "E:/notations/";
 }

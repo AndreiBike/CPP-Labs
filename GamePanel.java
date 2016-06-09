@@ -1,5 +1,6 @@
 package BubbleTank;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -101,7 +102,7 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     plabel.setFont(new Font("Verdana", Font.ITALIC, 20));
     pframe.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
     pframe.setLocationRelativeTo(null);
-    setResizable(false);
+    pframe.setResizable(false);
     ppanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     ppanel.setLayout(new BoxLayout(ppanel, BoxLayout.Y_AXIS));
     ppanel.add(plabel);
@@ -147,19 +148,22 @@ public class GamePanel extends JFrame implements Runnable, Constants {
     winLabel.setFont(new Font("Calibri", Font.ITALIC, 30));
     replayFinished.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     replayFinished.setFont(new Font("Calibri", Font.ITALIC, 30));
-    over.setSize(new Dimension(PAUSE_WIDTH, PAUSE_HEIDTH));
+    over.setSize(new Dimension(OVER_WIDTH, OVER_HEIDTH));
     over.setLocationRelativeTo(null);
-    setResizable(false);
+    over.setResizable(false);
     overPanel.add(Box.createRigidArea(new Dimension(0, YAREA_25)));
     overPanel.setLayout(new BoxLayout(overPanel, BoxLayout.Y_AXIS));
 
     if (!playSaveGame) {
       if (win) {
         overPanel.add(winLabel);
+        overPanel.setBackground(Color.GREEN);
       } else {
         overPanel.add(overLabel);
+        overPanel.setBackground(Color.GRAY);
       }
     } else {
+      overPanel.setBackground(Color.PINK);
       overPanel.add(replayFinished);
       point.setVisible(false);
       save.setEnabled(false);
